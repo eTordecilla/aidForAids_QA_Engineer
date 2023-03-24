@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "a759a766-1e6d-414f-bdf3-9c42fbfe3e5d",
+		"name": "Tarea 1: Pruebas de API AidForAids",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23841411"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Obtener correo de un usuario\", function () {\r",
+							"    pm.sendRequest(\"https://jsonplaceholder.typicode.com/users\", function (err, res) {\r",
+							"        const users = res.json();\r",
+							"        const randomUser = users[Math.floor(Math.random() * users.length)];\r",
+							"        console.log(`La dirección de correo electrónico del usuario aleatorio es ${randomUser.email}`);\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users/6",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener publicaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Obtener las publicaciones asociadas a un usuario y verificar que contienen ID válido\", function () {\r",
+							"    pm.sendRequest(`https://jsonplaceholder.typicode.com/posts?userId=6`, function (err, res) {\r",
+							"        const posts = res.json();\r",
+							"        posts.forEach(function(post) {\r",
+							"            pm.expect(post.id).to.be.within(1, 100);\r",
+							"        });\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts?userId=6",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hacer una publicación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Hacer una publicación y verificar que se devuelve la respuesta correcta\", function () {\r",
+							"    const requestBody = {\r",
+							"        \"userId\": 6,\r",
+							"        \"title\": \"Prueba QA Engineer\",\r",
+							"        \"body\": \"Esta publicacion es un test para la vacante freelance de QA Engineer en Aid for Aids\"\r",
+							"    };\r",
+							"    pm.sendRequest({\r",
+							"        url: \"https://jsonplaceholder.typicode.com/posts\",\r",
+							"        method: \"POST\",\r",
+							"        header: {\r",
+							"            \"Content-Type\": \"application/json\"\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: \"raw\",\r",
+							"            raw: JSON.stringify(requestBody)\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        pm.expect(res.code).to.equal(201); // Validamos que la respuesta sea 201 \"Created\"\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
