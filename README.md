@@ -14,7 +14,7 @@ Este repositorio contiene la solución a la prueba tecnica para el cargo Freelan
 
 1. Descargar el código
 2. Ejecutarlo en el IDE, recomiendo usar IntelliJ Idea versión community
-3. Open > “no dirigimos a donde se descargó nuestro proyecto” > dentro ubicamos el archivo pom.xml > le damos abrir todo el proyecto
+3. Open > “nos dirigimos a donde se descargó nuestro proyecto” > dentro ubicamos el archivo pom.xml > le damos abrir todo el proyecto
 4. Una vez abierto esperamos a que se instalen todas las dependencias
 5. Nos dirigimos al archivo “busqueda.java” que se encuentra en la direccion 2. AidForAidsTest\src\test\java\busqueda.java
 6. Hacemos click derecho y Run ‘busqueda’
